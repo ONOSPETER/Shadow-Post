@@ -7,7 +7,12 @@ const TATUM_API_KEY = process.env.TATUM_API_KEY || "";
 const TATUM_WALRUS_URL = "https://api.tatum.io/v4/data/storage/upload";
 const MAX_RETRIES = 2;
 
-const BLOB_CACHE_DIR = join(process.cwd(), "data", "blobs");
+// On Vercel (serverless) process.cwd() is read-only; use /tmp instead.
+// Cache is ephemeral per function instance — a warm instance reuses it,
+// but cold starts start fresh. For persistent caching use a KV store or DB.
+const BLOB_CACHE_DIR = process.env.VERCEL
+  ? join("/tmp", "shadowpost", "blobs")
+  : join(process.cwd(), "data", "blobs");
 
 function ensureCacheDir() {
   if (!existsSync(BLOB_CACHE_DIR)) mkdirSync(BLOB_CACHE_DIR, { recursive: true });

@@ -2,7 +2,16 @@ import { Router } from "express";
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "fs";
 import { join } from "path";
 
-const DATA_DIR = join(process.cwd(), "data");
+// On Vercel (and other serverless platforms) process.cwd() is read-only.
+// /tmp is the only writable directory. Data written here survives within a
+// single warm function instance but is lost on cold starts — for true
+// persistence across instances you would need a database (e.g. Postgres,
+// Redis, or KV). This keeps the function from crashing while the registry
+// is small / low-traffic.
+const DATA_DIR = process.env.VERCEL
+  ? join("/tmp", "shadowpost")
+  : join(process.cwd(), "data");
+
 const REGISTRY_FILE = join(DATA_DIR, "key-registry.json");
 
 let cache: Record<string, string> | null = null;
