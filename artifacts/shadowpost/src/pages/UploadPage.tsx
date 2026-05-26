@@ -123,7 +123,21 @@ function SuccessView({ blobId, txDigest, onReset }: { blobId?: string; txDigest?
         <div className="space-y-3 mb-8 text-left max-w-sm mx-auto">
           {blobId && (
             <div className="rounded-xl p-4" style={{ background: "var(--sui-elevated)", border: "1px solid var(--sui-border)" }}>
-              <div className="text-[10px] uppercase tracking-wider mb-1.5 font-medium" style={{ color: "var(--sui-text-muted)" }}>Walrus Blob ID</div>
+              <div className="flex items-center justify-between mb-1.5">
+                <div className="text-[10px] uppercase tracking-wider font-medium" style={{ color: "var(--sui-text-muted)" }}>Walrus Blob ID</div>
+                <a
+                  href={`https://aggregator.walrus-mainnet.walrus.space/v1/blobs/${encodeURIComponent(blobId)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[10px] flex items-center gap-1 transition-colors"
+                  style={{ color: "var(--sui-blue-bright)" }}
+                >
+                  <svg viewBox="0 0 12 12" fill="currentColor" className="w-2.5 h-2.5 shrink-0">
+                    <path d="M10 1H7.5a.5.5 0 000 1h1.293L5.146 5.646a.5.5 0 00.708.708L9.5 2.707V4a.5.5 0 001 0V1.5A.5.5 0 0010 1zM3 2a1 1 0 00-1 1v6a1 1 0 001 1h6a1 1 0 001-1V6.5a.5.5 0 00-1 0V9H3V3h2.5a.5.5 0 000-1H3z"/>
+                  </svg>
+                  Verify on Walrus →
+                </a>
+              </div>
               <div className="text-xs font-mono break-all text-blue-400">{blobId}</div>
             </div>
           )}

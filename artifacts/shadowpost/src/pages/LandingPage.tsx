@@ -36,7 +36,7 @@ const features = [
       </svg>
     ),
     label: "NaCl Encrypted",
-    desc: "End-to-end",
+    desc: "End-to-end locally",
   },
   {
     icon: (
@@ -45,7 +45,7 @@ const features = [
       </svg>
     ),
     label: "Walrus Storage",
-    desc: "Decentralized",
+    desc: "via Tatum API",
   },
   {
     icon: (
@@ -53,8 +53,38 @@ const features = [
         <path fillRule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
       </svg>
     ),
-    label: "On-Chain Delivery",
-    desc: "Sui Network",
+    label: "Tatum Sui RPC",
+    desc: "Mainnet delivery",
+  },
+];
+
+const steps = [
+  {
+    n: "01",
+    title: "Encrypt Locally",
+    body: "Your message is sealed in your browser with NaCl box encryption using the recipient's public key. The plaintext never leaves your device.",
+    tag: "TweetNaCl · Client-side",
+    color: "rgba(139,92,246,0.15)",
+    border: "rgba(139,92,246,0.25)",
+    tagColor: "#A78BFA",
+  },
+  {
+    n: "02",
+    title: "Store on Walrus",
+    body: "The encrypted blob is uploaded to Walrus decentralized storage via Tatum's Storage API. Walrus distributes the data across nodes — no single point of failure.",
+    tag: "Walrus · Tatum Storage API",
+    color: "rgba(59,130,246,0.12)",
+    border: "rgba(59,130,246,0.25)",
+    tagColor: "#60A5FA",
+  },
+  {
+    n: "03",
+    title: "Deliver on Sui",
+    body: "A Sui transaction records the Walrus blob ID on-chain, transferring a Secret object to the recipient. All RPC calls route through Tatum's Sui Mainnet nodes.",
+    tag: "Sui Mainnet · Tatum RPC",
+    color: "rgba(34,197,94,0.08)",
+    border: "rgba(34,197,94,0.2)",
+    tagColor: "#4ADE80",
   },
 ];
 
@@ -190,6 +220,69 @@ export default function LandingPage() {
             </div>
           </div>
         ))}
+      </motion.div>
+
+      {/* ── How it works ─────────────────────────────────────────── */}
+      <motion.section
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.6 }}
+        className="relative z-10 px-6 pb-16 max-w-4xl mx-auto w-full"
+      >
+        <div className="text-center mb-10">
+          <p className="text-[11px] uppercase tracking-widest font-semibold mb-2" style={{ color: "var(--sui-blue-bright)" }}>
+            How it works
+          </p>
+          <h2 className="text-2xl sm:text-3xl font-black text-white">
+            Three steps. Zero trust required.
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {steps.map((s) => (
+            <div
+              key={s.n}
+              className="rounded-2xl p-5 flex flex-col gap-3"
+              style={{ background: s.color, border: `1px solid ${s.border}` }}
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-3xl font-black" style={{ color: s.border }}>{s.n}</span>
+                <span
+                  className="text-[10px] font-mono px-2 py-0.5 rounded-full"
+                  style={{ background: "rgba(0,0,0,0.25)", color: s.tagColor, border: `1px solid ${s.border}` }}
+                >
+                  {s.tag}
+                </span>
+              </div>
+              <h3 className="text-sm font-bold text-white">{s.title}</h3>
+              <p className="text-xs leading-relaxed" style={{ color: "var(--sui-text-dim)" }}>{s.body}</p>
+            </div>
+          ))}
+        </div>
+      </motion.section>
+
+      {/* ── Powered by ───────────────────────────────────────────── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.8 }}
+        className="relative z-10 pb-10 flex flex-col items-center gap-3"
+      >
+        <p className="text-[10px] uppercase tracking-widest font-medium" style={{ color: "var(--sui-text-muted)" }}>
+          Powered by
+        </p>
+        <div className="flex items-center gap-5">
+          {[
+            { name: "Tatum", sub: "RPC + Storage API", color: "#F59E0B" },
+            { name: "Walrus", sub: "Decentralized Storage", color: "#60A5FA" },
+            { name: "Sui", sub: "Mainnet Blockchain", color: "#22D3EE" },
+          ].map((p) => (
+            <div key={p.name} className="flex flex-col items-center gap-0.5">
+              <span className="text-sm font-black" style={{ color: p.color }}>{p.name}</span>
+              <span className="text-[9px]" style={{ color: "var(--sui-text-muted)" }}>{p.sub}</span>
+            </div>
+          ))}
+        </div>
       </motion.div>
     </div>
   );

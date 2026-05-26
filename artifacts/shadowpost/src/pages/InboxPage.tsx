@@ -55,15 +55,30 @@ function MessageDetail({ msg, onDecrypt }: { msg: DecryptedMessage; onDecrypt: (
           </div>
 
           <div className="space-y-2.5">
-            {[
-              { label: "Blob ID", value: msg.walrusBlobId || "—" },
-              { label: "Object ID", value: msg.id || "—" },
-            ].map(({ label, value }) => (
-              <div key={label} className="flex gap-3 text-xs">
-                <span className="w-16 shrink-0 font-medium" style={{ color: "var(--sui-text-muted)" }}>{label}</span>
-                <span className="font-mono break-all" style={{ color: "var(--sui-text-dim)" }}>{value}</span>
+            <div className="flex gap-3 text-xs">
+              <span className="w-16 shrink-0 font-medium" style={{ color: "var(--sui-text-muted)" }}>Blob ID</span>
+              <div className="flex flex-col gap-0.5 min-w-0">
+                <span className="font-mono break-all" style={{ color: "var(--sui-text-dim)" }}>{msg.walrusBlobId || "—"}</span>
+                {msg.walrusBlobId && (
+                  <a
+                    href={`https://aggregator.walrus-mainnet.walrus.space/v1/blobs/${encodeURIComponent(msg.walrusBlobId)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] flex items-center gap-1 transition-colors"
+                    style={{ color: "var(--sui-blue-bright)" }}
+                  >
+                    <svg viewBox="0 0 12 12" fill="currentColor" className="w-2.5 h-2.5 shrink-0">
+                      <path d="M10 1H7.5a.5.5 0 000 1h1.293L5.146 5.646a.5.5 0 00.708.708L9.5 2.707V4a.5.5 0 001 0V1.5A.5.5 0 0010 1zM3 2a1 1 0 00-1 1v6a1 1 0 001 1h6a1 1 0 001-1V6.5a.5.5 0 00-1 0V9H3V3h2.5a.5.5 0 000-1H3z"/>
+                    </svg>
+                    Verify blob on Walrus →
+                  </a>
+                )}
               </div>
-            ))}
+            </div>
+            <div className="flex gap-3 text-xs">
+              <span className="w-16 shrink-0 font-medium" style={{ color: "var(--sui-text-muted)" }}>Object ID</span>
+              <span className="font-mono break-all" style={{ color: "var(--sui-text-dim)" }}>{msg.id || "—"}</span>
+            </div>
           </div>
         </div>
 

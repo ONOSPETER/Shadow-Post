@@ -26,3 +26,12 @@ externalPort = 8080
 [[ports]]
 localPort = 8081
 externalPort = 80
+
+[[ports]]
+localPort = 19559
+externalPort = 3000
+
+[userenv]
+
+[userenv.shared]
+TATUM_API_KEY = "t-6a1457908e1cdc441253afcd-44470645454e4e8c943c39e5"
