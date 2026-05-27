@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "oQaZcwuCSjiE-OxSIZRzF"
+uri = "file://README.md"
+type = "text"
+title = "ShadowPost README.md"
