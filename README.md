@@ -21,7 +21,7 @@ NaCl box encryption · Walrus decentralized storage · Tatum-powered RPC · Zero
 [![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
 </div>
-
+<h1>Live Demo: <a href="https://vercel-deploy-helper--patrickobiegba.replit.app/">🔗</a></h1>
 ---
 
 ## The Problem
